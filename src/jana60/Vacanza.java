@@ -7,24 +7,21 @@ import java.time.format.DateTimeFormatter;
 public class Vacanza {
 
 	private String destinazione;
-	private int giorno, mese, anno;
-	
-	public Vacanza(String destinazione, int giorno, int mese, int anno) throws Exception{
+	private LocalDate inizio ;
+	private LocalDate fine ;
+	private LocalDate oggi = LocalDate.now();
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+	public Vacanza(String destinazione,LocalDate inizio,LocalDate fine) throws Exception{
 		super();
 		this.destinazione = destinazione;
-		this.giorno = giorno;
-		this.mese = mese;
-		this.anno = anno;
+		this.inizio = inizio;
+		this.fine = fine;
 		this.validaVacanza();
 		this.validaFine();
-		this.validaInizio();
+		this.validaInizio();	
 	}
 	
-	LocalDate inizio = LocalDate.of(giorno, mese, anno);
-	LocalDate fine = LocalDate.of(giorno, mese, anno);
-
-	LocalDate oggi = LocalDate.now();
-
 	public String getDestinazione() {
 		return destinazione;
 	}
@@ -33,29 +30,6 @@ public class Vacanza {
 		this.destinazione = destinazione;
 	}
 
-	public int getGiorno() {
-		return giorno;
-	}
-
-	public void setGiorno(int giorno) {
-		this.giorno = giorno;
-	}
-
-	public int getMese() {
-		return mese;
-	}
-
-	public void setMese(int mese) {
-		this.mese = mese;
-	}
-
-	public int getAnno() {
-		return anno;
-	}
-
-	public void setAnno(int anno) {
-		this.anno = anno;
-	}
 
 	public LocalDate getInizio() {
 		return inizio;
@@ -72,7 +46,23 @@ public class Vacanza {
 	public void setFine(LocalDate fine) {
 		this.fine = fine;
 	}
-	
+
+	public LocalDate getOggi() {
+		return oggi;
+	}
+
+	public void setOggi(LocalDate oggi) {
+		this.oggi = oggi;
+	}
+
+	public DateTimeFormatter getFormatter() {
+		return formatter;
+	}
+
+	public void setFormatter(DateTimeFormatter formatter) {
+		this.formatter = formatter;
+	}
+
 	public void validaVacanza() throws Exception {
 		if (inizio == null || fine == null || destinazione == null) {
 			throw new Exception ("Si prega di inserire dei dati validi per il soggiorno e/o la destinazione");
@@ -91,5 +81,11 @@ public class Vacanza {
 		}
 	}
 	
-	 Period etaPeriod = Period.between(inizio, fine);
+	public Period pp() {
+		Period vacanzaPeriod = Period.between(inizio, fine);
+		return vacanzaPeriod;
+	}
+	
+	
+	
 }
